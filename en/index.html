@@ -231,6 +231,121 @@
     </div>
   </section>
 
+  <!-- ══ OP-25 ══ -->
+  <section class="wrap op" id="op25">
+    <h2 class="oph"><span class="opn">OP-25</span>DECISION AGENT<em>cost picks the threshold</em><span class="st st--live">LIVE</span></h2>
+    <div class="pan pan--pad">
+      <form class="ag" id="agForm" autocomplete="off">
+        <div class="ag__in">
+          <fieldset>
+            <legend>ORDER</legend>
+            <div class="ag__f">
+              <label><span>Shipping</span>
+                <select id="agMode">
+                  <option value="Standard Class">Standard Class · 4 days</option>
+                  <option value="Second Class">Second Class · 2 days</option>
+                  <option value="First Class">First Class · 1 day</option>
+                  <option value="Same Day">Same Day · 0 days</option>
+                </select></label>
+              <label><span>Market</span>
+                <select id="agMarket">
+                  <option>Europe</option><option>LATAM</option><option>Pacific Asia</option>
+                  <option>USCA</option><option>Africa</option>
+                </select></label>
+              <label><span>Region</span>
+                <select id="agRegion">
+                  <option value="Canada" data-m="USCA">Canada</option>
+                  <option value="Caribbean" data-m="LATAM">Caribbean</option>
+                  <option value="Central Africa" data-m="Africa">Central Africa</option>
+                  <option value="Central America" data-m="LATAM">Central America</option>
+                  <option value="Central Asia" data-m="Pacific Asia">Central Asia</option>
+                  <option value="East Africa" data-m="Africa">East Africa</option>
+                  <option value="East of USA" data-m="USCA">East of USA</option>
+                  <option value="Eastern Asia" data-m="Pacific Asia">Eastern Asia</option>
+                  <option value="Eastern Europe" data-m="Europe">Eastern Europe</option>
+                  <option value="North Africa" data-m="Africa">North Africa</option>
+                  <option value="Northern Europe" data-m="Europe">Northern Europe</option>
+                  <option value="Oceania" data-m="Pacific Asia">Oceania</option>
+                  <option value="South America" data-m="LATAM">South America</option>
+                  <option value="South Asia" data-m="Pacific Asia">South Asia</option>
+                  <option value="South of  USA " data-m="USCA">South of USA</option>
+                  <option value="Southeast Asia" data-m="Pacific Asia">Southeast Asia</option>
+                  <option value="Southern Africa" data-m="Africa">Southern Africa</option>
+                  <option value="Southern Europe" data-m="Europe">Southern Europe</option>
+                  <option value="US Center " data-m="USCA">US Center</option>
+                  <option value="West Africa" data-m="Africa">West Africa</option>
+                  <option value="West Asia" data-m="Pacific Asia">West Asia</option>
+                  <option value="West of USA " data-m="USCA">West of USA</option>
+                  <option value="Western Europe" data-m="Europe" selected>Western Europe</option>
+                </select></label>
+              <label><span>Category</span>
+                <select id="agCat">
+                  <option>Accessories</option><option value="As Seen on  TV!">As Seen on TV!</option>
+                  <option value="Baby ">Baby</option><option>Baseball &amp; Softball</option>
+                  <option>Basketball</option><option value="Books ">Books</option>
+                  <option>Boxing &amp; MMA</option><option value="CDs ">CDs</option>
+                  <option value="Cameras ">Cameras</option><option>Camping &amp; Hiking</option>
+                  <option>Cardio Equipment</option><option>Children's Clothing</option>
+                  <option selected>Cleats</option><option>Computers</option>
+                  <option>Consumer Electronics</option><option>Crafts</option>
+                  <option>DVDs</option><option>Electronics</option><option>Fishing</option>
+                  <option>Fitness Accessories</option><option>Garden</option>
+                  <option>Girls' Apparel</option><option>Golf Apparel</option>
+                  <option>Golf Bags &amp; Carts</option><option>Golf Balls</option>
+                  <option>Golf Gloves</option><option>Golf Shoes</option>
+                  <option>Health and Beauty</option><option>Hockey</option>
+                  <option>Hunting &amp; Shooting</option><option>Indoor/Outdoor Games</option>
+                  <option>Kids' Golf Clubs</option><option>Lacrosse</option>
+                  <option>Men's Clothing</option><option>Men's Footwear</option>
+                  <option>Men's Golf Clubs</option><option>Music</option>
+                  <option>Pet Supplies</option><option>Shop By Sport</option>
+                  <option>Soccer</option><option>Sporting Goods</option>
+                  <option>Strength Training</option><option>Tennis &amp; Racquet</option>
+                  <option>Toys</option><option>Trade-In</option><option>Video Games</option>
+                  <option>Water Sports</option><option>Women's Apparel</option>
+                  <option>Women's Clothing</option><option>Women's Golf Clubs</option>
+                </select></label>
+              <label><span>Payment</span>
+                <select id="agPay">
+                  <option>DEBIT</option><option>TRANSFER</option>
+                  <option>PAYMENT</option><option>CASH</option>
+                </select></label>
+              <label><span>Unit price</span>
+                <input id="agPrice" type="number" min="0" max="5000" step="0.01" value="327.75"></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>COST — RATIO</legend>
+            <div class="ag__pair">
+              <label><span>Missed late</span>
+                <input id="agMiss" type="number" min="0" max="1000" step="1" value="1"></label>
+              <label><span>False alarm</span>
+                <input id="agFalse" type="number" min="0" max="1000" step="1" value="1"></label>
+            </div>
+            <p class="ag__note">Not currency — a ratio. Only the proportion between the
+              two changes the threshold.</p>
+          </fieldset>
+          <button class="b b--fill ag__go" type="submit" id="agGo">EVALUATE</button>
+        </div>
+
+        <div class="ag__out" id="agOut" aria-live="polite">
+          <p class="ag__idle">Give it an order and two costs. The agent runs the model,
+            picks the threshold that minimises expected cost along the measured
+            curve, states the decision and the lever you still hold — and tells
+            you when the model is not earning its keep.</p>
+        </div>
+      </form>
+
+      <p class="opnote">The model runs here: 200-tree XGBoost, flattened after training
+        and ported to plain JavaScript; across 5,000 test rows it differs from the
+        Python original by 1.9·10⁻⁷. <b>The language model computes nothing</b> —
+        every figure is produced here first, and Gemini only writes the sentence.</p>
+      <p class="kaynak">Code, measurements and tests:
+        <a href="https://github.com/senasayginsenyuz/late-delivery-agent"
+        target="_blank" rel="noopener">github.com/senasayginsenyuz/late-delivery-agent ↗</a></p>
+    </div>
+  </section>
+
   <!-- ══ OP-30 ══ -->
   <section class="wrap op" id="op30">
     <h2 class="oph"><span class="opn">OP-30</span>PROCESS ANALYSIS<em>four layers, one person</em></h2>
@@ -397,6 +512,25 @@
         <p class="ship__r"><i>LOCATION &amp; WORKING MODE</i>Between Türkiye and Serbia ·
           fully aligned with European hours · remote</p>
       </div>
+
+      <div class="qa" id="qa">
+        <p class="qa__t">ASK THIS PAGE</p>
+        <form class="qa__f" id="qaForm" autocomplete="off">
+          <input id="qaQ" type="text" maxlength="500" placeholder="e.g. which models has she built?"
+            aria-label="Your question about this site">
+          <button class="b" type="submit" id="qaGo">ASK</button>
+        </form>
+        <div class="qa__ex">
+          <button type="button" data-q="Which machine learning projects has she built?">ML projects</button>
+          <button type="button" data-q="How much production planning experience does she have?">field experience</button>
+          <button type="button" data-q="Which tools and languages does she use?">tools</button>
+          <button type="button" data-q="Hangi rolleri arıyor?">roller (TR)</button>
+        </div>
+        <p class="qa__a" id="qaA"></p>
+        <p class="qa__n">Answers only from what is on this site; it does not
+          invent what it does not know, it says so. It shares no phone number or
+          e-mail address — contact goes through LinkedIn and the form.</p>
+      </div>
     </div>
   </section>
 
@@ -428,4 +562,5 @@
 </dialog>
 
 <script src="../site.js" defer></script>
+<script src="../agent.js" defer></script>
 </body></html>

@@ -10,6 +10,7 @@ index.html      → Türkçe sayfa (tek sayfa, bölümler #id ile)
 en/index.html   → İngilizce sayfa (aynı CSS ve JS'i kullanır)
 site.css        → tasarım sistemi (iki tema: koyu varsayılan, açık)
 site.js         → kontrol kartı, tema, iletişim formu — iki dilli
+agent.js        → OP-25 karar ajanı ve site asistanı istemcisi
 robots.txt      → tarayıcılara açık
 sitemap.xml     → iki dil, hreflang ile
 assets/
@@ -50,6 +51,10 @@ Kural: **yeşil grafiklerin içine girmez, mavi/pas/çelik arayüze çıkmaz.**
 - **JavaScript kapalıyken** sayfa okunur kalır: şekillerin yerine gerçek değerleri taşıyan
   yedek metinler görünür.
 - **Google Fonts bağımlılığı yok** — yazı tipleri yerelden servis edilir, dışarıya istek atılmaz.
+- **Tek dış istek OP-25'te**, o da ziyaretçi düğmeye bastığında:
+  [`late-delivery-agent`](https://github.com/senasayginsenyuz/late-delivery-agent)
+  uç noktası. Sayfa açılışında yoklama yapılmaz; uç nokta cevap vermezse bölüm
+  hata metnini gösterir, sayfanın geri kalanı etkilenmez.
 
 ## Yerelde çalıştırma
 
