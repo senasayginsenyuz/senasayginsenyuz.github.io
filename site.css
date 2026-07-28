@@ -393,15 +393,18 @@ img,svg{max-width:100%}
   .ag__cf s{grid-column:2}}
 
 /* ══ site asistanı ══ */
-/* .ship iki sütunlu; asistan ikisinin altında tam genişlikte durur */
-.qa{grid-column:1/-1;margin-top:4px;padding-top:20px;border-top:1px solid var(--rule)}
+/* asistan sağ sütunda, bağlantıların altında — o sütun iletişim kanalları sütunu */
+.qa{margin-top:22px;padding-top:18px;border-top:1px solid var(--rule)}
 .qa__t{font:700 var(--m2) var(--mono);letter-spacing:.14em;color:var(--faint)}
 .qa__f{margin-top:11px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px}
 .qa input{width:100%;min-width:0;background:var(--field);border:1px solid var(--edge);
   color:var(--ink);font:400 var(--t1) var(--sans);padding:9px 11px}
 .qa input:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
-.qa__a{margin-top:12px;font-size:var(--t1);line-height:1.65;color:var(--ink);max-width:58ch;
-  white-space:pre-wrap}
+/* Yanıt iki sütunun ALTINDA, tam genişlikte: soru kutusu kanallar sütununda
+   dursun ama uzun yanıt o dar sütunu 1200px'e uzatmasın — sol sütunun altında
+   kalan boşluğu da bu doldurur. */
+.qa__a{grid-column:1/-1;margin-top:2px;padding-top:18px;border-top:1px solid var(--rule);
+  font-size:var(--t1);line-height:1.65;color:var(--ink);max-width:64ch;white-space:pre-wrap}
 .qa__a:empty{display:none}
 .qa__ex{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap}
 .qa__ex button{background:none;border:1px solid var(--rule2);color:var(--soft);cursor:pointer;
