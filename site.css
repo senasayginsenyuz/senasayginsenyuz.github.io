@@ -152,9 +152,6 @@ img,svg{max-width:100%}
 .hero__name span{display:block;font-weight:400;color:var(--soft)}
 .hero__role{margin-top:18px;font:700 var(--m3) var(--mono);letter-spacing:.2em;color:var(--ink)}
 /* konum ve çalışma biçimi — rota kartı künye dili */
-.hero__loc{margin-top:9px;font:400 var(--m2)/1.7 var(--mono);letter-spacing:.13em;color:var(--soft)}
-.hero__lead{margin-top:20px;max-width:54ch;color:var(--soft);font-size:var(--t3)}
-.hero__lead b{color:var(--ink);font-weight:600}
 .hero__cta{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 /* background:none olmazsa <button class="b"> tarayıcının gri düğme dolgusunu
    alır; sınıf bugüne dek yalnızca <a> üzerinde kullanıldığı için görünmüyordu. */
