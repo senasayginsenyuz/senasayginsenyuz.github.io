@@ -365,6 +365,8 @@ img,svg{max-width:100%}
   letter-spacing:.03em;color:var(--ink);overflow-wrap:anywhere}
 .ag__h{margin-top:18px;padding-top:13px;border-top:1px solid var(--rule);
   font:700 var(--m1) var(--mono);letter-spacing:.18em;color:var(--faint)}
+/* cümleyi yazan modelin künyesi — başlıktan bir ton soluk */
+.ag__h s{text-decoration:none;font-weight:400;opacity:.72}
 .ag__cf{margin-top:10px;display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
 .ag__cf li{display:grid;grid-template-columns:minmax(0,1fr) 62px 62px;gap:10px;
   align-items:baseline;background:var(--pan);padding:9px 12px;

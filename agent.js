@@ -46,6 +46,15 @@
   function $(id) { return document.getElementById(id); }
   function yuzde(x) { var s = (x * 100).toFixed(1); return EN ? s + "%" : "%" + s.replace(".", ","); }
   function say(x, n) { var s = x.toFixed(n); return EN ? s : s.replace(".", ","); }
+  // Cümleyi hangi modelin yazdığı künyede görünür: Gemini'nin günlük kotası
+  // bitince yedek devreye giriyor ve bunu gizlemek projenin tezine aykırı olur.
+  function kisaModel(ad) {
+    if (!ad) return "";
+    if (ad === "gemini") return "GEMINI";
+    if (ad.indexOf("llama-3.3-70b") > -1) return "LLAMA 3.3 70B";
+    return ad.replace(/^@cf\//, "").toUpperCase();
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
@@ -149,7 +158,9 @@
       }
 
       if (d.explanation) {
-        h.push('<p class="ag__h">' + T.not + '</p><p class="ag__say">' + esc(d.explanation) + "</p>");
+        h.push('<p class="ag__h">' + T.not +
+          (d.explained_by ? ' <s>· ' + esc(kisaModel(d.explained_by)) + '</s>' : '') +
+          '</p><p class="ag__say">' + esc(d.explanation) + "</p>");
       } else if (d.explanation_error) {
         // Sayılar ürün, cümle kolaylık. Dil modeli düşünce analiz kalır —
         // ama bunu söylemeden geçmek, bölüm eksik basılmış gibi görünür.
