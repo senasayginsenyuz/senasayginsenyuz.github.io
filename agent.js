@@ -25,6 +25,9 @@
     model: "run the model", kural: "no model",
     hata: "The agent could not be reached. The measured figures are in OP-20 and in the repository.",
     limit: "Too many requests in a short time — try again in a minute.",
+    kota: "The agent's free daily quota is used up; it resets each day. "
+        + "The measured figures are in OP-20 and in the repository.",
+    notyok: "The written note could not be produced — the figures above are unaffected.",
     bos: "Type a question first."
   } : {
     idle: "", bekle: "…", degerlendir: "DEĞERLENDİR", sor: "SOR",
@@ -34,6 +37,9 @@
     model: "modeli çalıştır", kural: "modelsiz kural",
     hata: "Ajana ulaşılamadı. Ölçülmüş değerler OP-20'de ve depoda duruyor.",
     limit: "Kısa sürede çok fazla istek — bir dakika sonra tekrar deneyin.",
+    kota: "Ajanın günlük ücretsiz kotası doldu; kota her gün sıfırlanıyor. "
+        + "Ölçülmüş değerler OP-20'de ve depoda duruyor.",
+    notyok: "Yazılı not üretilemedi — yukarıdaki sayılar bundan etkilenmez.",
     bos: "Önce bir soru yazın."
   };
 
@@ -59,8 +65,13 @@
     });
   }
 
+  // İki ayrı 429 var ve ikisine aynı cümleyi yazmak yanıltıcı: biri bizim
+  // dakikalık sınırımız ("birazdan tekrar deneyin" doğru), diğeri Gemini'nin
+  // günlük ücretsiz kotası — orada bir dakika beklemek işe yaramaz.
   function hataMetni(err) {
-    if (err && (err.durum === 429 || err.kod === "rate_limited")) return T.limit;
+    if (!err) return T.hata;
+    if (err.kod === "rate_limited") return T.limit;
+    if (err.kod === "llm" && err.durum === 429) return T.kota;
     return T.hata;
   }
 
@@ -139,6 +150,11 @@
 
       if (d.explanation) {
         h.push('<p class="ag__h">' + T.not + '</p><p class="ag__say">' + esc(d.explanation) + "</p>");
+      } else if (d.explanation_error) {
+        // Sayılar ürün, cümle kolaylık. Dil modeli düşünce analiz kalır —
+        // ama bunu söylemeden geçmek, bölüm eksik basılmış gibi görünür.
+        h.push('<p class="ag__h">' + T.not + '</p><p class="ag__err">' +
+          esc(/429/.test(d.explanation_error) ? T.kota : T.notyok) + "</p>");
       }
 
       var uyarilar = (d.guardrails || []).map(function (g) { return g.message; })
