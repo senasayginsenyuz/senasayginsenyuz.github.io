@@ -180,10 +180,30 @@
     }
   })();
 
-  /* ═══ site asistanı ═══ */
+  /* ═══ sayfa ajanı — sabit köşe ═══ */
   var qaForm = $("qaForm");
   if (qaForm) (function () {
     var giris = $("qaQ"), cevap = $("qaA"), go = $("qaGo");
+    var kap = $("ajan"), ac = $("ajanAc"), panel = $("ajanPanel"), kapat = $("ajanKapat");
+
+    function ayarla(acik) {
+      panel.hidden = !acik;
+      kap.classList.toggle("is-open", acik);
+      ac.setAttribute("aria-expanded", acik ? "true" : "false");
+      if (acik) giris.focus();
+      else ac.focus();
+    }
+    ac.addEventListener("click", function () { ayarla(panel.hidden); });
+    kapat.addEventListener("click", function () { ayarla(false); });
+
+    // Kalıcı bir denetim; sayfayı kilitlemez. Esc kapatır, dışarı tıklamak da —
+    // ama panelin içinde metin seçerken kapanmasın diye hedef kontrol edilir.
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !panel.hidden) ayarla(false);
+    });
+    document.addEventListener("pointerdown", function (e) {
+      if (!panel.hidden && !kap.contains(e.target)) ayarla(false);
+    });
 
     Array.prototype.forEach.call(document.querySelectorAll(".qa__ex button"), function (b) {
       b.addEventListener("click", function () {

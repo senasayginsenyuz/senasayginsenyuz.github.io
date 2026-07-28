@@ -519,26 +519,7 @@
         </ul>
         <p class="ship__r"><i>KONUM VE ÇALIŞMA BİÇİMİ</i>Türkiye ve Sırbistan arasında ·
           Avrupa mesaisine tam uyumlu · uzaktan</p>
-      <div class="qa" id="qa">
-          <p class="qa__t">SAYFAYA SORU SORUN</p>
-          <form class="qa__f" id="qaForm" autocomplete="off">
-            <input id="qaQ" type="text" maxlength="500" placeholder="Örn. hangi modelleri kurdu?"
-              aria-label="Site hakkında sorunuz">
-            <button class="b" type="submit" id="qaGo">SOR</button>
-          </form>
-          <div class="qa__ex">
-            <button type="button" data-q="Hangi makine öğrenmesi projelerini yaptı?">ML projeleri</button>
-            <button type="button" data-q="Üretim planlama deneyimi ne kadar?">saha deneyimi</button>
-            <button type="button" data-q="Hangi araçları ve dilleri kullanıyor?">araçlar</button>
-            <button type="button" data-q="Which roles is she looking for?">roles (EN)</button>
-          </div>
-            <p class="qa__n">Yalnızca bu sitedeki bilgilerden yanıtlar; bilmediğini
-            uydurmaz, bilmediğinde söyler. Telefon ve e-posta paylaşmaz —
-            iletişim LinkedIn ve yandaki form üzerinden.</p>
-        </div>
       </div>
-
-      <p class="qa__a" id="qaA"></p>
     </div>
   </section>
 
@@ -555,6 +536,36 @@
     </div>
   </footer>
 </main>
+
+<!-- ══ SAYFA AJANI — sabit köşe ══ -->
+<div class="ajan" id="ajan">
+  <button class="ajan__ac" id="ajanAc" type="button" aria-expanded="false" aria-controls="ajanPanel">
+    <span class="ajan__tag">SOR</span>SAYFAYA SORU SORUN
+  </button>
+
+  <section class="ajan__p" id="ajanPanel" role="dialog" aria-label="Sayfaya soru sorun" hidden>
+    <header class="ajan__h">
+      <b>SAYFA AJANI</b>
+      <button type="button" id="ajanKapat" aria-label="Kapat">&#10005;</button>
+    </header>
+
+    <div class="ajan__g">
+      <div class="qa__ex">
+        <button type="button" data-q="Hangi makine öğrenmesi projelerini yaptı?">ML projeleri</button>
+        <button type="button" data-q="Üretim planlama deneyimi ne kadar?">saha deneyimi</button>
+        <button type="button" data-q="Hangi araçları ve dilleri kullanıyor?">araçlar</button>
+        <button type="button" data-q="Which roles is she looking for?">roles (EN)</button>
+      </div>
+      <p class="qa__a" id="qaA" aria-live="polite"></p>
+    </div>
+
+    <form class="qa__f" id="qaForm" autocomplete="off">
+      <input id="qaQ" type="text" maxlength="500" placeholder="Örn. hangi modelleri kurdu?" aria-label="Site hakkında sorunuz">
+      <button class="b" type="submit" id="qaGo">SOR</button>
+    </form>
+    <p class="qa__n">Yalnızca bu sitedeki bilgilerden yanıtlar; bilmediğini uydurmaz, bilmediğinde söyler. Telefon ve e-posta paylaşmaz.</p>
+  </section>
+</div>
 
 <dialog class="modal" id="formModal" aria-labelledby="mformT">
   <form class="mform" id="mform" action="https://formspree.io/f/mzdnypzo" method="POST">

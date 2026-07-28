@@ -511,26 +511,7 @@
         </ul>
         <p class="ship__r"><i>LOCATION &amp; WORKING MODE</i>Between Türkiye and Serbia ·
           fully aligned with European hours · remote</p>
-      <div class="qa" id="qa">
-          <p class="qa__t">ASK THIS PAGE</p>
-          <form class="qa__f" id="qaForm" autocomplete="off">
-            <input id="qaQ" type="text" maxlength="500" placeholder="e.g. which models has she built?"
-              aria-label="Your question about this site">
-            <button class="b" type="submit" id="qaGo">ASK</button>
-          </form>
-          <div class="qa__ex">
-            <button type="button" data-q="Which machine learning projects has she built?">ML projects</button>
-            <button type="button" data-q="How much production planning experience does she have?">field experience</button>
-            <button type="button" data-q="Which tools and languages does she use?">tools</button>
-            <button type="button" data-q="Hangi rolleri arıyor?">roller (TR)</button>
-          </div>
-            <p class="qa__n">Answers only from what is on this site; it does not
-            invent what it does not know, it says so. It shares no phone number or
-            e-mail address — contact goes through LinkedIn and the form.</p>
-        </div>
       </div>
-
-      <p class="qa__a" id="qaA"></p>
     </div>
   </section>
 
@@ -547,6 +528,36 @@
     </div>
   </footer>
 </main>
+
+<!-- ══ SAYFA AJANI — sabit köşe ══ -->
+<div class="ajan" id="ajan">
+  <button class="ajan__ac" id="ajanAc" type="button" aria-expanded="false" aria-controls="ajanPanel">
+    <span class="ajan__tag">ASK</span>ASK THIS PAGE
+  </button>
+
+  <section class="ajan__p" id="ajanPanel" role="dialog" aria-label="Ask this page" hidden>
+    <header class="ajan__h">
+      <b>PAGE AGENT</b>
+      <button type="button" id="ajanKapat" aria-label="Close">&#10005;</button>
+    </header>
+
+    <div class="ajan__g">
+      <div class="qa__ex">
+        <button type="button" data-q="Which machine learning projects has she built?">ML projects</button>
+        <button type="button" data-q="How much production planning experience does she have?">field experience</button>
+        <button type="button" data-q="Which tools and languages does she use?">tools</button>
+        <button type="button" data-q="Hangi rolleri arıyor?">roller (TR)</button>
+      </div>
+      <p class="qa__a" id="qaA" aria-live="polite"></p>
+    </div>
+
+    <form class="qa__f" id="qaForm" autocomplete="off">
+      <input id="qaQ" type="text" maxlength="500" placeholder="e.g. which models has she built?" aria-label="Your question about this site">
+      <button class="b" type="submit" id="qaGo">ASK</button>
+    </form>
+    <p class="qa__n">Answers only from what is on this site; it does not invent what it does not know. It shares no phone number or e-mail address.</p>
+  </section>
+</div>
 
 <dialog class="modal" id="formModal" aria-labelledby="mformT">
   <form class="mform" id="mform" action="https://formspree.io/f/mzdnypzo" method="POST">
