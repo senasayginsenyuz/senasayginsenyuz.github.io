@@ -348,6 +348,32 @@ img,svg{max-width:100%}
 .ag__note{margin-top:9px;font:400 var(--m2)/1.6 var(--mono);color:var(--faint)}
 .ag__go{width:100%}
 
+/* hazır maliyet senaryoları + oran göstergesi */
+.ag__on{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
+.ag__on button{background:none;border:1px solid var(--rule2);color:var(--soft);cursor:pointer;
+  font:400 var(--m2) var(--mono);letter-spacing:.06em;padding:5px 8px}
+.ag__on button:hover{border-color:var(--acc);color:var(--acc)}
+.ag__pair{margin-top:9px}
+.ag__oran{margin-top:9px;display:flex;align-items:baseline;gap:9px}
+.ag__oran i{font:400 var(--m1) var(--mono);font-style:normal;letter-spacing:.16em;color:var(--faint)}
+.ag__oran b{font:700 var(--m3) var(--mono);letter-spacing:.08em;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+/* formun neden böyle olduğunu söyleyen ölçülmüş ağırlık satırı */
+.ag__agir{margin:0 0 16px;padding-bottom:14px;border-bottom:1px solid var(--rule);
+  font:400 var(--m2)/1.7 var(--mono);color:var(--faint)}
+.ag__agir b{color:var(--soft);font-weight:700}
+
+/* maliyet eğrisi — eşiğin nereden geldiğini gösteren tek kare */
+.ag__eg{width:100%;height:auto;margin-top:10px;overflow:visible}
+.eg-ax{stroke:var(--rule2);stroke-width:1}
+.eg-base{stroke:var(--edge);stroke-width:1;stroke-dasharray:5 4}
+.eg-line{fill:none;stroke:var(--dat);stroke-width:1.8;stroke-linejoin:round}
+.eg-dot{fill:var(--dat);stroke:var(--pan);stroke-width:2}
+.eg-dot.kotu{fill:var(--warn)}
+.eg-lab{font:400 var(--m1) var(--mono);fill:var(--faint);letter-spacing:.1em}
+.eg-sec{font:700 var(--m1) var(--mono);fill:var(--dat);letter-spacing:.06em}
+.eg-sec.kotu{fill:var(--warn)}
+
 /* çıktı */
 .ag__p{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .ag__p b{font:700 clamp(30px,5vw,42px)/1 var(--tight);letter-spacing:-.03em;

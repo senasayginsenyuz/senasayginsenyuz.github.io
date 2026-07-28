@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sena Saygın Şenyüz — Industrial Engineer · AI · Business Analysis</title>
-<meta name="description" content="Sena Saygın Şenyüz — industrial engineer · AI · business analysis. I planned production on the factory floor; now I build models that predict late delivery in a supply chain before the delivery happens. Between Türkiye and Serbia · fully aligned with European hours · remote.">
+<meta name="description" content="Sena Saygın Şenyüz — industrial engineer · AI · business analysis. I planned production on the factory floor; now I build models that predict late delivery in a supply chain before the delivery happens.">
 <meta name="author" content="Sena Saygın Şenyüz">
 <meta name="theme-color" content="#F1EEE9" media="(prefers-color-scheme:light)">
 <meta name="theme-color" content="#1C1E1D" media="(prefers-color-scheme:dark)">
@@ -32,7 +32,7 @@
 {"@context":"https://schema.org","@type":"Person","name":"Sena Saygın Şenyüz",
 "jobTitle":"Industrial Engineer · Artificial Intelligence · Business Analysis",
 "url":"https://senasayginsenyuz.com/en/","image":"https://senasayginsenyuz.com/assets/portre.jpg",
-"description":"Industrial engineer working on AI and data analysis for manufacturing and supply chain. Between Türkiye and Serbia, fully aligned with European hours, remote.",
+"description":"Industrial engineer working on AI and data analysis for manufacturing and supply chain.",
 "knowsLanguage":[{"@type":"Language","name":"Turkish"},{"@type":"Language","name":"English"}],
 "alumniOf":{"@type":"CollegeOrUniversity","name":"Atılım University"},
 "knowsAbout":["Machine learning","Supply chain analytics","Production planning","Business analysis"],
@@ -311,14 +311,22 @@
                 <input id="agPrice" type="number" min="0" max="5000" step="0.01" value="327.75"></label>
             </div>
           </fieldset>
+          <p class="ag__agir">Measured weight: <b>Shipping 49.5%</b> · the window it fixes 43.6% · the remaining nine fields 6.9% together.</p>
+
           <fieldset>
             <legend>COST — RATIO</legend>
+            <div class="ag__on">
+              <button type="button" data-m="1" data-f="1">balanced</button>
+              <button type="button" data-m="10" data-f="1">misses costly</button>
+              <button type="button" data-m="1" data-f="10">false alarms costly</button>
+            </div>
             <div class="ag__pair">
               <label><span>Missed late</span>
                 <input id="agMiss" type="number" min="0" max="1000" step="1" value="1"></label>
               <label><span>False alarm</span>
                 <input id="agFalse" type="number" min="0" max="1000" step="1" value="1"></label>
             </div>
+            <p class="ag__oran"><i>RATIO</i><b id="agOran">1 : 1</b></p>
             <p class="ag__note">Not currency — a ratio. Only the proportion between the
               two changes the threshold.</p>
           </fieldset>
@@ -507,8 +515,6 @@
           <li><a href="../assets/Sena_Saygin_Senyuz_CV_EN.pdf" hreflang="en" download><i>CV</i>English (PDF) ↓</a></li>
         <li><a href="../assets/Sena_Saygin_Senyuz_CV_TR.pdf" hreflang="tr" download><i>CV · TR</i>Turkish (PDF) ↓</a></li>
         </ul>
-        <p class="ship__r"><i>LOCATION &amp; WORKING MODE</i>Between Türkiye and Serbia ·
-          fully aligned with European hours · remote</p>
       </div>
     </div>
   </section>

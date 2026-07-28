@@ -22,6 +22,7 @@
     flag: "expedite / warn the customer", keep: "leave on the normal plan",
     olasilik: "LATE PROBABILITY", esik: "THRESHOLD", karar: "DECISION", oneri: "RECOMMENDATION",
     hareket: "WHAT WOULD CHANGE IT", not: "THE AGENT'S NOTE", uyari: "GUARDRAILS",
+    egri: "COST CURVE", egriAlt: "expected cost per order", modelsiz: "no model", secilen: "chosen",
     model: "run the model", kural: "no model",
     hata: "The agent could not be reached. The measured figures are in OP-20 and in the repository.",
     limit: "Too many requests in a short time — try again in a minute.",
@@ -34,6 +35,7 @@
     flag: "hızlandır / müşteriyi uyar", keep: "normal planda bırak",
     olasilik: "GECİKME OLASILIĞI", esik: "EŞİK", karar: "KARAR", oneri: "ÖNERİ",
     hareket: "ELDEKİ HAREKET", not: "AJANIN NOTU", uyari: "KORKULUK",
+    egri: "MALİYET EĞRİSİ", egriAlt: "sipariş başına beklenen maliyet", modelsiz: "modelsiz", secilen: "seçilen",
     model: "modeli çalıştır", kural: "modelsiz kural",
     hata: "Ajana ulaşılamadı. Ölçülmüş değerler OP-20'de ve depoda duruyor.",
     limit: "Kısa sürede çok fazla istek — bir dakika sonra tekrar deneyin.",
@@ -84,6 +86,51 @@
     return T.hata;
   }
 
+
+  /* Eşiğin nasıl seçildiğini gösteren küçük eğri.
+     "Beklenen maliyeti en aza indiren eşiği seçer" demek başka, o minimumu
+     göstermek başka. Dokuz ölçülmüş eşik noktası, seçilen nokta ve modelsiz
+     kuralın maliyeti tek karede. */
+  function egriCiz(d) {
+    var o = d.policy.options, taban = d.policy.baselines.best_blanket;
+    if (!o || o.length < 2) return "";
+
+    var W = 480, H = 128, SOL = 10, SAG = 78, UST = 12, ALT = 24;
+    var t0 = o[0].threshold, t1 = o[o.length - 1].threshold;
+    var deg = o.map(function (p) { return p.expected_cost; }).concat([taban]);
+    var yMin = Math.min.apply(null, deg), yMax = Math.max.apply(null, deg);
+    var bosluk = (yMax - yMin) * 0.18 || 1;
+    yMin -= bosluk; yMax += bosluk;
+
+    function X(t) { return SOL + (t - t0) / (t1 - t0) * (W - SOL - SAG); }
+    function Y(v) { return UST + (1 - (v - yMin) / (yMax - yMin)) * (H - UST - ALT); }
+
+    var nokta = o.map(function (p) { return X(p.threshold).toFixed(1) + "," + Y(p.expected_cost).toFixed(1); });
+    var sec = d.policy.chosen;
+    var kotu = d.policy.recommendation.use !== "model";
+    var sx = X(sec.threshold), sy = Y(sec.expected_cost), ty = Y(taban);
+
+    // Seçilen eşik uçlardan birine denk gelince etiketler üst üste biniyordu
+    // ("0,3030"). Yakınsa uç etiketi düşer; kenardaysa hizalama içeri döner.
+    var yakinSol = Math.abs(sx - X(t0)) < 30, yakinSag = Math.abs(sx - X(t1)) < 30;
+    var hiza = yakinSol ? "start" : yakinSag ? "end" : "middle";
+    var eksenY = H - ALT + 13;
+
+    return '<p class="ag__h">' + T.egri + ' <s>· ' + T.egriAlt + '</s></p>' +
+      '<svg class="ag__eg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' +
+        esc(T.egri + ": " + say(sec.threshold, 2)) + '">' +
+      '<line class="eg-ax" x1="' + SOL + '" y1="' + (H - ALT) + '" x2="' + (W - SAG) + '" y2="' + (H - ALT) + '"/>' +
+      '<line class="eg-base" x1="' + SOL + '" y1="' + ty.toFixed(1) + '" x2="' + (W - SAG) + '" y2="' + ty.toFixed(1) + '"/>' +
+      '<text class="eg-lab" x="' + (W - SAG + 6) + '" y="' + (ty + 3.2).toFixed(1) + '">' + T.modelsiz + '</text>' +
+      '<polyline class="eg-line" points="' + nokta.join(" ") + '"/>' +
+      (yakinSol ? "" : '<text class="eg-lab" x="' + SOL + '" y="' + eksenY + '" text-anchor="start">' + say(t0, 2) + '</text>') +
+      (yakinSag ? "" : '<text class="eg-lab" x="' + (W - SAG) + '" y="' + eksenY + '" text-anchor="end">' + say(t1, 2) + '</text>') +
+      '<circle class="eg-dot' + (kotu ? " kotu" : "") + '" cx="' + sx.toFixed(1) + '" cy="' + sy.toFixed(1) + '" r="4.5"/>' +
+      '<text class="eg-sec' + (kotu ? " kotu" : "") + '" x="' + sx.toFixed(1) + '" y="' + eksenY +
+        '" text-anchor="' + hiza + '">' + say(sec.threshold, 2) + '</text>' +
+      '</svg>';
+  }
+
   /* ═══ OP-25 ═══ */
   var form = $("agForm");
   if (form) (function () {
@@ -104,13 +151,50 @@
     market.addEventListener("change", bolgeleriSuz);
     bolgeleriSuz();
 
+    // Maliyet oranını görünür tut ve hazır senaryoları bağla.
+    var oranEt = $("agOran"), miss = $("agMiss"), fals = $("agFalse");
+    function oranYaz() {
+      var m = Number(miss.value), f = Number(fals.value);
+      oranEt.textContent = (isFinite(m) ? m : "?") + " : " + (isFinite(f) ? f : "?");
+    }
+    miss.addEventListener("input", oranYaz);
+    fals.addEventListener("input", oranYaz);
+    Array.prototype.forEach.call(form.querySelectorAll(".ag__on button"), function (b) {
+      b.addEventListener("click", function () {
+        miss.value = b.getAttribute("data-m");
+        fals.value = b.getAttribute("data-f");
+        oranYaz();
+        calistir(true);
+      });
+    });
+    oranYaz();
+
+    // Bölüm ilk görünüşünde kendini çalıştırır — ziyaretçi boş bir form yerine
+    // hazır bir karar görsün. Açıklama İSTENMEZ: sayılar uçta bedava üretiliyor,
+    // cümleyi yazdırmak Gemini'nin günlük kotasından yiyor. Cümle ancak
+    // ziyaretçi DEĞERLENDİR'e bastığında geliyor.
+    if ("IntersectionObserver" in window) {
+      var gozcu = new IntersectionObserver(function (girdiler) {
+        if (girdiler.some(function (g) { return g.isIntersecting; })) {
+          gozcu.disconnect();
+          calistir(false);
+        }
+      }, { rootMargin: "120px" });
+      gozcu.observe(form);
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      calistir(true);
+    });
+
+    function calistir(aciklamaIste) {
       form.classList.add("is-busy");
       go.disabled = true;
       go.textContent = T.bekle;
 
       iste("/api/risk", {
+        explain: !!aciklamaIste,
         lang: EN ? "en" : "tr",
         costs: {
           missed_late: Number($("agMiss").value),
@@ -131,7 +215,7 @@
         go.disabled = false;
         go.textContent = T.degerlendir;
       });
-    });
+    }
 
     function ciz(d) {
       var h = [];
@@ -144,6 +228,8 @@
           esc(d.decision.flagged ? T.flag : T.keep) + "</b></div>" +
         "<div><i>" + T.oneri + "</i><b>" +
           esc(oneri.use === "model" ? T.model : T.kural + " · " + oneri.rule) + "</b></div></div>");
+
+      h.push(egriCiz(d));
 
       if (d.counterfactuals && d.counterfactuals.length) {
         h.push('<p class="ag__h">' + T.hareket + "</p><ul class=\"ag__cf\">");

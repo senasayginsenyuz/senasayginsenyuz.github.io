@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sena Saygın Şenyüz — Endüstri Mühendisi · Yapay Zekâ · İş Analizi</title>
-<meta name="description" content="Sena Saygın Şenyüz — endüstri mühendisi · yapay zekâ · iş analizi. Üretimi sahada planladım; şimdi tedarik zincirinde geç teslimatı, teslimat gerçekleşmeden önce tahmin eden modeller kuruyorum. Türkiye ve Sırbistan arasında · Avrupa mesaisine tam uyumlu · uzaktan.">
+<meta name="description" content="Sena Saygın Şenyüz — endüstri mühendisi · yapay zekâ · iş analizi. Üretimi sahada planladım; şimdi tedarik zincirinde geç teslimatı, teslimat gerçekleşmeden önce tahmin eden modeller kuruyorum.">
 <meta name="author" content="Sena Saygın Şenyüz">
 <meta name="theme-color" content="#F1EEE9" media="(prefers-color-scheme:light)">
 <meta name="theme-color" content="#1C1E1D" media="(prefers-color-scheme:dark)">
@@ -32,7 +32,7 @@
 {"@context":"https://schema.org","@type":"Person","name":"Sena Saygın Şenyüz",
 "jobTitle":"Endüstri Mühendisi · Yapay Zekâ · İş Analizi",
 "url":"https://senasayginsenyuz.com/","image":"https://senasayginsenyuz.com/assets/portre.jpg",
-"description":"Endüstri mühendisi; üretim ve tedarik zinciri için yapay zekâ ve veri analizi. Türkiye ve Sırbistan arasında, Avrupa mesaisine tam uyumlu, uzaktan çalışır.",
+"description":"Endüstri mühendisi; üretim ve tedarik zinciri için yapay zekâ ve veri analizi.",
 "knowsLanguage":[{"@type":"Language","name":"Turkish"},{"@type":"Language","name":"English"}],
 "alumniOf":{"@type":"CollegeOrUniversity","name":"Atılım Üniversitesi"},
 "knowsAbout":["Makine öğrenmesi","Tedarik zinciri analitiği","Üretim planlama","İş analizi"],
@@ -321,14 +321,22 @@
                 <input id="agPrice" type="number" min="0" max="5000" step="0.01" value="327.75"></label>
             </div>
           </fieldset>
+          <p class="ag__agir">Ölçülmüş ağırlık: <b>Sevkiyat %49,5</b> · onun belirlediği planlanan pencere %43,6 · kalan dokuz alan toplam %6,9.</p>
+
           <fieldset>
             <legend>MALİYET — ORAN</legend>
+            <div class="ag__on">
+              <button type="button" data-m="1" data-f="1">dengeli</button>
+              <button type="button" data-m="10" data-f="1">gecikme pahalı</button>
+              <button type="button" data-m="1" data-f="10">boş alarm pahalı</button>
+            </div>
             <div class="ag__pair">
               <label><span>Kaçan gecikme</span>
                 <input id="agMiss" type="number" min="0" max="1000" step="1" value="1"></label>
               <label><span>Boş alarm</span>
                 <input id="agFalse" type="number" min="0" max="1000" step="1" value="1"></label>
             </div>
+            <p class="ag__oran"><i>ORAN</i><b id="agOran">1 : 1</b></p>
             <p class="ag__note">Para birimi değil, oran. Yalnızca ikisinin
               birbirine oranı eşiği değiştirir.</p>
           </fieldset>
@@ -515,8 +523,6 @@
           <li><a href="assets/Sena_Saygin_Senyuz_CV_TR.pdf" hreflang="tr" download><i>ÖZGEÇMİŞ</i>CV — Türkçe (PDF) ↓</a></li>
         <li><a href="assets/Sena_Saygin_Senyuz_CV_EN.pdf" hreflang="en" download><i>CV · EN</i>CV — İngilizce (PDF) ↓</a></li>
         </ul>
-        <p class="ship__r"><i>KONUM VE ÇALIŞMA BİÇİMİ</i>Türkiye ve Sırbistan arasında ·
-          Avrupa mesaisine tam uyumlu · uzaktan</p>
       </div>
     </div>
   </section>
