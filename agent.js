@@ -13,7 +13,8 @@
   "use strict";
 
   var yerel = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-  var API = yerel ? "http://localhost:8787" : "https://late-delivery-agent.senasaygin.workers.dev";
+  var API = yerel ? "http://localhost:8787"
+                  : "https://late-delivery-agent.senasayginsenyuz.workers.dev";
   var EN = document.documentElement.lang === "en";
 
   var T = EN ? {
